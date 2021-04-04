@@ -38,6 +38,7 @@ create table message (
     date date not null
 );
 
+
 drop table if exists api_log;
 
 create table api_log (
@@ -46,4 +47,39 @@ create table api_log (
     url varchar(1024) not null,
     query_url varchar(1024),
     timestamp timestamp
+);
+
+drop table if exists timesheet;
+drop table if exists work_assignment;
+drop table if exists work_item;
+drop table if exists work_type;
+
+create table work_type (
+    id int auto_increment primary key,
+    name varchar(250) unique not null
+);
+
+create table work_item (
+    id int auto_increment primary key,
+    name varchar(250) unique not null,
+    type_id int not null,
+    foreign key (type_id) references work_type(id)
+);
+
+create table work_assignment (
+    id int auto_increment primary key,
+    user_id int not null,
+    item_id int not null,
+    foreign key (user_id) references user(id),
+    foreign key (item_id) references work_item(id),
+    unique(user_id, item_id)
+);
+
+create table timesheet (
+    id int auto_increment primary key,
+    assignment_id int not null,
+    date date not null,
+    hours int,
+    foreign key (assignment_id) references work_assignment(id),
+    unique(assignment_id, date)
 );

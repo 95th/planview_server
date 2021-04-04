@@ -10,6 +10,7 @@ import com.planview.server.entity.ApiLogAggregate;
 import com.planview.server.repos.ApiLogRepo;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,16 +33,14 @@ public class ApiLogService {
     }
 
     @GetMapping
-    public List<ApiLog> getLogs(
-            @RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public List<ApiLog> getLogs(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate endDate) {
         return this.requestLogRepo.findAllForDateRange(startDate.atStartOfDay(), endDate.plusDays(1).atStartOfDay());
     }
 
     @GetMapping("aggregate")
-    public List<ApiLogAggregate> getLogsAggregate(
-            @RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public List<ApiLogAggregate> getLogsAggregate(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate endDate) {
         return this.requestLogRepo.findAllForDateRangeAsAggregate(startDate.atStartOfDay(),
                 endDate.plusDays(1).atStartOfDay());
     }

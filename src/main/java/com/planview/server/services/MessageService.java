@@ -29,7 +29,7 @@ public class MessageService {
     }
 
     @GetMapping
-    public List<Message> getMessages(@RequestParam("recipient") String recipient) {
+    public List<Message> getMessages(@RequestParam String recipient) {
         return this.messageRepo.findAllByRecipient(recipient);
     }
 
