@@ -1,4 +1,4 @@
-package com.planview.server.services;
+package com.planview.server.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,12 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/work")
 @PreAuthorize("hasRole('ADMIN')")
-public class WorkService {
+public class WorkController {
     private final WorkTypeRepo typeRepo;
     private final WorkItemRepo itemRepo;
     private final WorkAssignmentRepo assignmentRepo;
 
-    public WorkService(WorkTypeRepo typeRepo, WorkItemRepo itemRepo, WorkAssignmentRepo assignmentRepo) {
+    public WorkController(WorkTypeRepo typeRepo, WorkItemRepo itemRepo, WorkAssignmentRepo assignmentRepo) {
         this.typeRepo = typeRepo;
         this.itemRepo = itemRepo;
         this.assignmentRepo = assignmentRepo;

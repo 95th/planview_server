@@ -1,4 +1,4 @@
-package com.planview.server.services;
+package com.planview.server.controller;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/message")
-public class MessageService {
+public class MessageController {
     private final MessageRepo messageRepo;
 
-    public MessageService(MessageRepo messageRepo) {
+    public MessageController(MessageRepo messageRepo) {
         this.messageRepo = messageRepo;
     }
 

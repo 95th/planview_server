@@ -1,4 +1,4 @@
-package com.planview.server.services;
+package com.planview.server.controller;
 
 import javax.validation.Valid;
 
@@ -18,10 +18,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("api/user")
-public class UserService {
+public class UserController {
     private final UserRepo userRepo;
 
-    public UserService(UserRepo userRepo) {
+    public UserController(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 

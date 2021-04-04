@@ -1,4 +1,4 @@
-package com.planview.server.services;
+package com.planview.server.entity;
 
 import javax.validation.constraints.NotBlank;
 

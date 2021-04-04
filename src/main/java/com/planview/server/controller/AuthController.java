@@ -1,7 +1,8 @@
-package com.planview.server.services;
+package com.planview.server.controller;
 
 import javax.validation.Valid;
 
+import com.planview.server.entity.LoginDetails;
 import com.planview.server.entity.User;
 import com.planview.server.repos.UserRepo;
 

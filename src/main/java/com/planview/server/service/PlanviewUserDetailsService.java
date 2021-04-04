@@ -1,4 +1,4 @@
-package com.planview.server.services;
+package com.planview.server.service;
 
 import com.planview.server.repos.UserRepo;
 

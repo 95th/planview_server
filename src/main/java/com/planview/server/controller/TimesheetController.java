@@ -1,4 +1,4 @@
-package com.planview.server.services;
+package com.planview.server.controller;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/timesheet")
-public class TimesheetService {
+public class TimesheetController {
     private final TimesheetRepo timesheetRepo;
 
-    public TimesheetService(TimesheetRepo timesheetRepo) {
+    public TimesheetController(TimesheetRepo timesheetRepo) {
         this.timesheetRepo = timesheetRepo;
     }
 
