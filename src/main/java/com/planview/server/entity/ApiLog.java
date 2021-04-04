@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "request_logs")
-public class RequestLog {
+@Table(name = "api_log")
+public class ApiLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -1,6 +1,6 @@
-drop table if exists users;
+drop table if exists user;
 
-create table users (
+create table user (
     id int auto_increment primary key,
     first_name varchar(250) not null,
     last_name varchar(250) not null,
@@ -20,16 +20,16 @@ create table users (
     check role in ('USER', 'ADMIN')
 );
 
-insert into users (first_name, last_name, date_of_birth, email, city, state, country, zip, user_name, password, role)
+insert into user (first_name, last_name, date_of_birth, email, city, state, country, zip, user_name, password, role)
 values (
     'the', 'admin', PARSEDATETIME('01-01-2001', 'dd-MM-yyyy'), 'admin@planview.com', 'admin city', 'admin state',
     'admin country', 'admin zip', 'admin', '$2y$12$PqHYbsHorZGuRQNbI4C7wuUl5LqoNUUTe5Q4TCap/P3Ue1zjRz2Qu', 'ADMIN'
 );
 
 
-drop table if exists messages;
+drop table if exists message;
 
-create table messages (
+create table message (
     id int auto_increment primary key,
     sender varchar(250) not null,
     recipient varchar(250) not null,
@@ -38,9 +38,9 @@ create table messages (
     date date not null
 );
 
-drop table if exists request_logs;
+drop table if exists api_log;
 
-create table request_logs (
+create table api_log (
     id int auto_increment primary key,
     user_id varchar(250),
     url varchar(1024) not null,

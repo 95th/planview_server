@@ -1249,3 +1249,6 @@ create table messages (
 2021-04-03 19:12:09 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "REQUESTLOG" not found; SQL statement:
 select * from RequestLog r where r.timestamp >= ? and trunc(r.timestamp) <= ? [42102-200]
+2021-04-04 08:40:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+select user0_.id as id1_2_, user0_.addr_line_1 as addr_lin2_2_, user0_.addr_line_2 as addr_lin3_2_, user0_.city as city4_2_, user0_.country as country5_2_, user0_.date_of_birth as date_of_6_2_, user0_.email as email7_2_, user0_.failed_tries as failed_t8_2_, user0_.first_name as first_na9_2_, user0_.last_name as last_na10_2_, user0_.locked as locked11_2_, user0_.password as passwor12_2_, user0_.role as role13_2_, user0_.state as state14_2_, user0_.user_name as user_na15_2_, user0_.zip as zip16_2_ from users user0_ where user0_.user_name=? [42102-200]

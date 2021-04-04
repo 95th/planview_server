@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.planview.server.entity.RequestLog;
-import com.planview.server.entity.RequestLogAggregate;
-import com.planview.server.repos.RequestLogRepo;
+import com.planview.server.entity.ApiLog;
+import com.planview.server.entity.ApiLogAggregate;
+import com.planview.server.repos.ApiLogRepo;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,28 +18,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/request-log")
-public class RequestLogService {
-    private final RequestLogRepo requestLogRepo;
+@RequestMapping("api/log")
+public class ApiLogService {
+    private final ApiLogRepo requestLogRepo;
 
-    public RequestLogService(RequestLogRepo requestLogRepo) {
+    public ApiLogService(ApiLogRepo requestLogRepo) {
         this.requestLogRepo = requestLogRepo;
     }
 
     @PostMapping
-    public RequestLog createLog(@RequestBody @Valid RequestLog log) {
+    public ApiLog createLog(@RequestBody @Valid ApiLog log) {
         return this.requestLogRepo.save(log);
     }
 
     @GetMapping
-    public List<RequestLog> getLogs(
+    public List<ApiLog> getLogs(
             @RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return this.requestLogRepo.findAllForDateRange(startDate.atStartOfDay(), endDate.plusDays(1).atStartOfDay());
     }
 
     @GetMapping("aggregate")
-    public List<RequestLogAggregate> getLogsAggregate(
+    public List<ApiLogAggregate> getLogsAggregate(
             @RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return this.requestLogRepo.findAllForDateRangeAsAggregate(startDate.atStartOfDay(),
