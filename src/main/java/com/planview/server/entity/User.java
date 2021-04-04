@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user")
@@ -18,15 +19,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @NotNull
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @NotNull
     @Column(name = "date_of_birth", nullable = false, columnDefinition = "DATE")
     private LocalDate dateOfBirth;
 
+    @NotNull
     @Column(name = "email", nullable = false)
     private String emailId;
 
@@ -36,21 +41,27 @@ public class User {
     @Column(name = "addr_line_2")
     private String addressLine2;
 
+    @NotNull
     @Column(name = "city", nullable = false)
     private String city;
 
+    @NotNull
     @Column(name = "state", nullable = false)
     private String state;
 
+    @NotNull
     @Column(name = "country", nullable = false)
     private String country;
 
+    @NotNull
     @Column(name = "zip", nullable = false)
     private String zip;
 
+    @NotNull
     @Column(name = "user_name", unique = true, nullable = false)
     private String userName;
 
+    @NotNull
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -58,11 +69,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @NotNull
     @Column(name = "locked", nullable = false)
     private boolean locked;
 
+    @NotNull
     @Column(name = "failed_tries", nullable = false)
-    private String failedTries;
+    private int failedTries;
 
     public int getId() {
         return id;
@@ -184,11 +197,11 @@ public class User {
         this.locked = locked;
     }
 
-    public String getFailedTries() {
+    public int getFailedTries() {
         return failedTries;
     }
 
-    public void setFailedTries(String failedTries) {
+    public void setFailedTries(int failedTries) {
         this.failedTries = failedTries;
     }
 
