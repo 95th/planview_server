@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.planview.server.entity.RequestLog;
+import com.planview.server.entity.RequestLogAggregate;
 import com.planview.server.repos.RequestLogRepo;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,7 +35,15 @@ public class RequestLogService {
     public List<RequestLog> getLogs(
             @RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return this.requestLogRepo.findAllForDateRange(startDate, endDate);
+        return this.requestLogRepo.findAllForDateRange(startDate.atStartOfDay(), endDate.plusDays(1).atStartOfDay());
+    }
+
+    @GetMapping("aggregate")
+    public List<RequestLogAggregate> getLogsAggregate(
+            @RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return this.requestLogRepo.findAllForDateRangeAsAggregate(startDate.atStartOfDay(),
+                endDate.plusDays(1).atStartOfDay());
     }
 
 }
