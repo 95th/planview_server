@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface TimesheetRepo extends JpaRepository<Timesheet, Integer> {
 
     @Query(value = "select t from Timesheet t"
-            + " where t.assignment.user.id = :userId and t.date >= :start and t.date < :end order by t.date")
-    List<Timesheet> findAllInDateRange(int userId, LocalDate start, LocalDate end);
+            + " where t.assignment.userId = :userId and t.weekStartDate = :weekStartDate order by t.assignment.id")
+    List<Timesheet> findAllForWeek(int userId, LocalDate weekStartDate);
 }

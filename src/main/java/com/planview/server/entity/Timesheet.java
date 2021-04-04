@@ -22,10 +22,23 @@ public class Timesheet {
     @JoinColumn(name = "assignment_id", nullable = false, referencedColumnName = "id")
     private WorkAssignment assignment;
 
-    @Column(name = "date", nullable = false, columnDefinition = "DATE")
-    private LocalDate date;
+    @Column(name = "week_start_date", nullable = false, columnDefinition = "DATE")
+    private LocalDate weekStartDate;
 
-    private int hours;
+    @Column(name = "hours_monday")
+    private int hoursMonday;
+
+    @Column(name = "hours_tuesday")
+    private int hoursTuesday;
+
+    @Column(name = "hours_wednesday")
+    private int hoursWednesday;
+
+    @Column(name = "hours_thursday")
+    private int hoursThursday;
+
+    @Column(name = "hours_friday")
+    private int hoursFriday;
 
     public int getId() {
         return id;
@@ -43,20 +56,52 @@ public class Timesheet {
         this.assignment = assignment;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getWeekStartDate() {
+        return weekStartDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setWeekStartDate(LocalDate weekStartDate) {
+        this.weekStartDate = weekStartDate;
     }
 
-    public int getHours() {
-        return hours;
+    public int getHoursMonday() {
+        return hoursMonday;
     }
 
-    public void setHours(int hours) {
-        this.hours = hours;
+    public void setHoursMonday(int hoursMonday) {
+        this.hoursMonday = hoursMonday;
+    }
+
+    public int getHoursTuesday() {
+        return hoursTuesday;
+    }
+
+    public void setHoursTuesday(int hoursTuesday) {
+        this.hoursTuesday = hoursTuesday;
+    }
+
+    public int getHoursWednesday() {
+        return hoursWednesday;
+    }
+
+    public void setHoursWednesday(int hoursWednesday) {
+        this.hoursWednesday = hoursWednesday;
+    }
+
+    public int getHoursThursday() {
+        return hoursThursday;
+    }
+
+    public void setHoursThursday(int hoursThursday) {
+        this.hoursThursday = hoursThursday;
+    }
+
+    public int getHoursFriday() {
+        return hoursFriday;
+    }
+
+    public void setHoursFriday(int hoursFriday) {
+        this.hoursFriday = hoursFriday;
     }
 
 }

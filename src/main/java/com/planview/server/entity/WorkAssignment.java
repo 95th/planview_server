@@ -1,5 +1,6 @@
 package com.planview.server.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +16,8 @@ public class WorkAssignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
-    private User user;
+    @Column(name = "user_id", nullable = false)
+    private int userId;
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false, referencedColumnName = "id")
@@ -31,12 +31,12 @@ public class WorkAssignment {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public WorkItem getWorkItem() {

@@ -78,8 +78,12 @@ create table work_assignment (
 create table timesheet (
     id int auto_increment primary key,
     assignment_id int not null,
-    date date not null,
-    hours int,
+    week_start_date date not null,
+    hours_monday int,
+    hours_tuesday int,
+    hours_wednesday int,
+    hours_thursday int,
+    hours_friday int,
     foreign key (assignment_id) references work_assignment(id),
-    unique(assignment_id, date)
+    unique(assignment_id, week_start_date)
 );

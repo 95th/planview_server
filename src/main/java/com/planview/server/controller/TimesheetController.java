@@ -12,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,14 +33,8 @@ public class TimesheetController {
 
     @GetMapping
     public List<Timesheet> getTimesheetsInRange(@RequestParam int userId,
-            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate endDate) {
-        return this.timesheetRepo.findAllInDateRange(userId, startDate, endDate.plusDays(1));
-    }
-
-    @PutMapping
-    public List<Timesheet> updateTimesheets(@RequestBody @Valid List<Timesheet> timesheets) {
-        return this.timesheetRepo.saveAll(timesheets);
+            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate weekStartDate) {
+        return this.timesheetRepo.findAllForWeek(userId, weekStartDate);
     }
 
 }
