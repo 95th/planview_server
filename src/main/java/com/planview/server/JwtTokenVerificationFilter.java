@@ -28,6 +28,7 @@ public class JwtTokenVerificationFilter extends OncePerRequestFilter {
         try {
             var auth = JwtRepo.parseToken(token);
             SecurityContextHolder.getContext().setAuthentication(auth);
+            filterChain.doFilter(request, response);
         } catch (JwtException e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
         }
