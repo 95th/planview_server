@@ -1,48 +1,56 @@
 package com.planview.server.jwt;
 
-import java.security.KeyPair;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Date;
+
+import javax.crypto.SecretKey;
 
 import com.planview.server.entity.User;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 
+@Component
 public class JwtUtil {
-    private static final KeyPair keyPair = Keys.keyPairFor(SignatureAlgorithm.RS256);
+    private final JwtConfig jwtConfig;
+    private final SecretKey secretKey;
 
-    private JwtUtil() {}
+    public JwtUtil(JwtConfig jwtConfig, SecretKey secretKey) {
+        this.jwtConfig = jwtConfig;
+        this.secretKey = secretKey;
+    }
 
-    public static String createToken(User user) {
+    public String createToken(User user) {
+        var expiration = ZonedDateTime.now().plusDays(this.jwtConfig.getTokenExpirationDays());
         var token = Jwts.builder()
                         .setIssuedAt(new Date())
                         .setSubject(user.getUserName())
-                        .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(15).toInstant()))
+                        .setExpiration(Date.from(expiration.toInstant()))
                         .claim("role", user.getRole())
-                        .signWith(keyPair.getPrivate())
+                        .signWith(secretKey)
                         .compact();
 
         return token;
     }
 
-    public static Authentication parseToken(String token) {
+    public Authentication parseToken(String token) {
         var jwt = Jwts.parserBuilder()
-                        .setSigningKey(keyPair.getPublic())
-                        .build()
-                        .parseClaimsJws(token);
+                      .setSigningKey(secretKey)
+                      .build()
+                      .parseClaimsJws(token);
 
         var body = jwt.getBody();
         var user = body.getSubject();
         var role = body.get("role");
+
         var authority = new SimpleGrantedAuthority("ROLE_" + role);
         var authorities = Collections.singletonList(authority);
+
         return new UsernamePasswordAuthenticationToken(user, null, authorities);
     }
 

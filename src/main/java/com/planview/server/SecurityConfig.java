@@ -1,6 +1,7 @@
 package com.planview.server;
 
 import com.planview.server.jwt.JwtTokenVerifier;
+import com.planview.server.jwt.JwtUtil;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final JwtUtil jwtUtil;
+
+    public SecurityConfig(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable();
@@ -21,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .addFilterAfter(new JwtTokenVerifier(), UsernamePasswordAuthenticationFilter.class)
+            .addFilterAfter(new JwtTokenVerifier(this.jwtUtil), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
             .antMatchers("/api/auth/login", "/static/**").permitAll()
             .anyRequest().authenticated();

@@ -17,9 +17,11 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("api/auth")
 public class AuthController {
     private final AuthService authService;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, JwtUtil jwtUtil) {
         this.authService = authService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("login")
@@ -29,6 +31,6 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }
 
-        return JwtUtil.createToken(user);
+        return this.jwtUtil.createToken(user);
     }
 }
