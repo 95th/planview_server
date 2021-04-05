@@ -43,7 +43,7 @@ drop table if exists api_log;
 
 create table api_log (
     id int auto_increment primary key,
-    user_id varchar(250),
+    user_id int not null,
     url varchar(1024) not null,
     query_url varchar(1024),
     timestamp timestamp

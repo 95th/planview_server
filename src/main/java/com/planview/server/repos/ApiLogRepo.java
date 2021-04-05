@@ -13,8 +13,11 @@ public interface ApiLogRepo extends JpaRepository<ApiLog, Integer> {
     @Query(value = "select t from ApiLog t where t.timestamp >= :start and t.timestamp < :end")
     List<ApiLog> findAllForDateRange(LocalDateTime start, LocalDateTime end);
 
-    @Query(value = "select new com.planview.server.entity.ApiLogAggregate(t.userId, t.url, count(1))"
-            + " from ApiLog t where t.timestamp >= :start and t.timestamp < :end group by t.userId, t.url"
-            + " order by t.userId, count(1) desc, t.url")
+    @Query(value = "select new com.planview.server.entity.ApiLogAggregate(u.userName, t.url, count(1))"
+            + " from ApiLog t join User u"
+            + " where t.userId = u.id"
+            + " and t.timestamp >= :start and t.timestamp < :end"
+            + " group by t.userId, t.url"
+            + " order by u.userName, count(1) desc, t.url")
     List<ApiLogAggregate> findAllForDateRangeAsAggregate(LocalDateTime start, LocalDateTime end);
 }

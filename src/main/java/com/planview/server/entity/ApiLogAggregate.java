@@ -1,18 +1,18 @@
 package com.planview.server.entity;
 
 public class ApiLogAggregate {
-    private final String userId;
+    private final String userName;
     private final String url;
     private final long count;
 
-    public ApiLogAggregate(String userId, String url, long count) {
-        this.userId = userId;
+    public ApiLogAggregate(String userName, String url, long count) {
+        this.userName = userName;
         this.url = url;
         this.count = count;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
     public String getUrl() {

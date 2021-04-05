@@ -18,7 +18,7 @@ public class ApiLog {
     private long id;
 
     @Column(name = "user_id")
-    private String userId;
+    private int userId;
 
     @NotNull
     @Column(name = "url", nullable = false)
@@ -39,11 +39,11 @@ public class ApiLog {
         this.id = id;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
