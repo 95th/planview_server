@@ -1,6 +1,5 @@
 spring:
   security:
-    user.password: klkl
     filter.order: 10
   datasource:
     url: jdbc:h2:file:./planv_db
