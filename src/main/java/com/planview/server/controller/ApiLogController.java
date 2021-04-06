@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.planview.server.entity.ApiLog;
 import com.planview.server.entity.ApiLogAggregate;
 import com.planview.server.repos.ApiLogRepo;
+import com.planview.server.service.AuthService;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -29,6 +30,7 @@ public class ApiLogController {
 
     @PostMapping
     public ApiLog createLog(@RequestBody @Valid ApiLog log) {
+        log.setUserId(AuthService.getCurrentUserId());
         return this.apiLogRepo.save(log);
     }
 

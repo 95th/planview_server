@@ -1,0 +1,12 @@
+2021-04-06 13:41:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT MESSAGE0_.ID AS COL_0_0_, USER1_.ID AS COL_1_0_ FROM MESSAGE MESSAGE0_ INNER JOIN USER USER1_ ON WHERE[*] MESSAGE0_.SENDER=USER1_.ID AND MESSAGE0_.RECIPIENT=? ORDER BY MESSAGE0_.ID"; expected "NOT, EXISTS, INTERSECTS, UNIQUE"; SQL statement:
+select message0_.id as col_0_0_, user1_.id as col_1_0_ from message message0_ inner join user user1_ on where message0_.sender=user1_.id and message0_.recipient=? order by message0_.id [42001-200]
+2021-04-06 13:55:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT USER1_.USER_NAME AS COL_0_0_, APILOG0_.URL AS COL_1_0_, COUNT(1) AS COL_2_0_ FROM API_LOG APILOG0_ INNER JOIN USER USER1_ ON WHERE[*] APILOG0_.USER_ID=USER1_.ID AND APILOG0_.TIMESTAMP>=? AND APILOG0_.TIMESTAMP<? GROUP BY APILOG0_.USER_ID , APILOG0_.URL ORDER BY USER1_.USER_NAME, COUNT(1) DESC, APILOG0_.URL"; expected "NOT, EXISTS, INTERSECTS, UNIQUE"; SQL statement:
+select user1_.user_name as col_0_0_, apilog0_.url as col_1_0_, count(1) as col_2_0_ from api_log apilog0_ inner join user user1_ on where apilog0_.user_id=user1_.id and apilog0_.timestamp>=? and apilog0_.timestamp<? group by apilog0_.user_id , apilog0_.url order by user1_.user_name, count(1) desc, apilog0_.url [42001-200]
+2021-04-06 14:11:24 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found; SQL statement:
+select * from users [42102-200]
+2021-04-06 14:58:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM TIMESHEET CROSS[*] JOIN WORK_ASSIGNMENT WORKASSIGN1_ WHERE USER_ID=?"; SQL statement:
+delete from timesheet cross join work_assignment workassign1_ where user_id=? [42000-200]

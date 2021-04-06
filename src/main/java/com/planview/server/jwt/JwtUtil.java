@@ -31,6 +31,7 @@ public class JwtUtil {
                         .setIssuedAt(new Date())
                         .setSubject(user.getUserName())
                         .setExpiration(Date.from(expiration.toInstant()))
+                        .claim("id", user.getId())
                         .claim("role", user.getRole())
                         .signWith(secretKey)
                         .compact();
@@ -45,13 +46,13 @@ public class JwtUtil {
                       .parseClaimsJws(token);
 
         var body = jwt.getBody();
-        var user = body.getSubject();
+        var userId = body.get("id", Integer.class);
         var role = body.get("role");
 
         var authority = new SimpleGrantedAuthority("ROLE_" + role);
         var authorities = Collections.singletonList(authority);
 
-        return new UsernamePasswordAuthenticationToken(user, null, authorities);
+        return new UsernamePasswordAuthenticationToken(userId, null, authorities);
     }
 
 }

@@ -11,6 +11,7 @@ import com.planview.server.entity.WorkType;
 import com.planview.server.repos.WorkAssignmentRepo;
 import com.planview.server.repos.WorkItemRepo;
 import com.planview.server.repos.WorkTypeRepo;
+import com.planview.server.service.AuthService;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,13 +66,14 @@ public class WorkController {
     }
 
     @PostMapping("assign")
-    public WorkAssignment createAssignment(@RequestBody @Valid WorkAssignment assignment) {
-        return this.assignmentRepo.save(assignment);
+    public List<WorkAssignment> createAssignments(@RequestBody @Valid List<WorkAssignment> assignments) {
+        return this.assignmentRepo.saveAll(assignments);
     }
 
     @GetMapping("assign")
     public List<WorkAssignment> getAssignments() {
-        return this.assignmentRepo.findAll();
+        var userId = AuthService.getCurrentUserId();
+        return this.assignmentRepo.findAllByUserId(userId);
     }
 
     @GetMapping("assign/{id}")

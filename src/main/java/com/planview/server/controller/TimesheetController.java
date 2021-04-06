@@ -7,9 +7,11 @@ import javax.validation.Valid;
 
 import com.planview.server.entity.Timesheet;
 import com.planview.server.repos.TimesheetRepo;
+import com.planview.server.service.AuthService;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,9 +34,15 @@ public class TimesheetController {
     }
 
     @GetMapping
-    public List<Timesheet> getTimesheetsInRange(@RequestParam int userId,
-            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate weekStartDate) {
+    public List<Timesheet> getTimesheetsInRange(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate weekStartDate) {
+        var userId = AuthService.getCurrentUserId();
         return this.timesheetRepo.findAllForWeek(userId, weekStartDate);
+    }
+
+    @GetMapping("all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Timesheet> getAllTimesheets() {
+        return this.timesheetRepo.findAll();
     }
 
 }

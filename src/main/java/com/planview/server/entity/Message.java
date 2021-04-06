@@ -1,6 +1,6 @@
 package com.planview.server.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,11 +19,11 @@ public class Message {
 
     @Column(name = "sender", nullable = false)
     @NotNull
-    private String sender;
+    private int sender;
 
     @Column(name = "recipient", nullable = false)
     @NotNull
-    private String recipient;
+    private int recipient;
 
     @Column(name = "subject", nullable = false)
     @NotNull
@@ -35,7 +35,7 @@ public class Message {
 
     @Column(name = "date", nullable = false, columnDefinition = "DATE")
     @NotNull
-    private LocalDate date;
+    private LocalDateTime date;
 
     public int getId() {
         return id;
@@ -45,19 +45,19 @@ public class Message {
         this.id = id;
     }
 
-    public String getSender() {
+    public int getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(int sender) {
         this.sender = sender;
     }
 
-    public String getRecipient() {
+    public int getRecipient() {
         return recipient;
     }
 
-    public void setRecipient(String recipient) {
+    public void setRecipient(int recipient) {
         this.recipient = recipient;
     }
 
@@ -77,11 +77,11 @@ public class Message {
         this.body = body;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
