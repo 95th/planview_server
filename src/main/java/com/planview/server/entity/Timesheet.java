@@ -1,6 +1,7 @@
 package com.planview.server.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "timesheet")
@@ -18,10 +20,12 @@ public class Timesheet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "assignment_id", nullable = false, referencedColumnName = "id")
     private WorkAssignment assignment;
 
+    @NotNull
     @Column(name = "week_start_date", nullable = false, columnDefinition = "DATE")
     private LocalDate weekStartDate;
 
@@ -39,6 +43,10 @@ public class Timesheet {
 
     @Column(name = "hours_friday")
     private int hoursFriday;
+
+    @NotNull
+    @Column(name = "last_updated", nullable = false, columnDefinition = "TIMESTAMP")
+    private LocalDateTime lastUpdated;
 
     public int getId() {
         return id;
@@ -102,6 +110,14 @@ public class Timesheet {
 
     public void setHoursFriday(int hoursFriday) {
         this.hoursFriday = hoursFriday;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
 }

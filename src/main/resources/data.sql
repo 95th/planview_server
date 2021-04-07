@@ -31,8 +31,8 @@ drop table if exists message;
 
 create table message (
     id int auto_increment primary key,
-    sender varchar(250) not null,
-    recipient varchar(250) not null,
+    sender int not null,
+    recipient int not null,
     subject varchar(512) not null,
     body varchar(4000) not null,
     date date not null
@@ -84,6 +84,7 @@ create table timesheet (
     hours_wednesday int,
     hours_thursday int,
     hours_friday int,
+    last_updated timestamp not null,
     foreign key (assignment_id) references work_assignment(id),
     unique(assignment_id, week_start_date)
 );

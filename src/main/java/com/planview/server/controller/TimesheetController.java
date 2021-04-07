@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.planview.server.entity.Timesheet;
+import com.planview.server.entity.TimesheetView;
 import com.planview.server.repos.TimesheetRepo;
 import com.planview.server.service.AuthService;
 
@@ -41,8 +42,8 @@ public class TimesheetController {
 
     @GetMapping("all")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<Timesheet> getAllTimesheets() {
-        return this.timesheetRepo.findAll();
+    public List<TimesheetView> getAllTimesheets() {
+        return this.timesheetRepo.findAllSubmitted();
     }
 
 }

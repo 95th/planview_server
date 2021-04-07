@@ -17,12 +17,12 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "sender", nullable = false)
     @NotNull
+    @Column(name = "sender", nullable = false)
     private int sender;
 
-    @Column(name = "recipient", nullable = false)
     @NotNull
+    @Column(name = "recipient", nullable = false)
     private int recipient;
 
     @Column(name = "subject", nullable = false)
