@@ -1,3 +1,9 @@
+drop table if exists timesheet;
+drop table if exists work_assignment;
+drop table if exists work_item;
+drop table if exists work_type;
+drop table if exists api_log;
+drop table if exists message;
 drop table if exists user;
 
 create table user (
@@ -20,20 +26,16 @@ create table user (
     check role in ('USER', 'ADMIN')
 );
 
-
-drop table if exists message;
-
 create table message (
     id int auto_increment primary key,
     sender int not null,
     recipient int not null,
     subject varchar(512) not null,
     body varchar(4000) not null,
-    date date not null
+    date date not null,
+    foreign key (sender) references user(id),
+    foreign key (recipient) references user(id)
 );
-
-
-drop table if exists api_log;
 
 create table api_log (
     id int auto_increment primary key,
@@ -42,11 +44,6 @@ create table api_log (
     query_url varchar(1024),
     timestamp timestamp
 );
-
-drop table if exists timesheet;
-drop table if exists work_assignment;
-drop table if exists work_item;
-drop table if exists work_type;
 
 create table work_type (
     id int auto_increment primary key,
