@@ -6,7 +6,11 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: password
-  jpa.database-platform: org.hibernate.dialect.H2Dialect
+    platform: h2
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: none
   h2.console.enabled: true
 
 logging.level:
