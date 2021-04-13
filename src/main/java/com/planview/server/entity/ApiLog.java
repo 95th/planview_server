@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "api_log")
@@ -20,14 +19,12 @@ public class ApiLog {
     @Column(name = "user_id")
     private int userId;
 
-    @NotNull
     @Column(name = "url", nullable = false)
     private String url;
 
-    @Column(name = "query_url")
-    private String queryUrl;
+    @Column(name = "query_params")
+    private String queryParams;
 
-    @NotNull
     @Column(name = "timestamp", nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime timestamp;
 
@@ -55,12 +52,12 @@ public class ApiLog {
         this.url = url;
     }
 
-    public String getQueryUrl() {
-        return queryUrl;
+    public String getQueryParams() {
+        return queryParams;
     }
 
-    public void setQueryUrl(String queryUrl) {
-        this.queryUrl = queryUrl;
+    public void setQueryParams(String queryParams) {
+        this.queryParams = queryParams;
     }
 
     public LocalDateTime getTimestamp() {

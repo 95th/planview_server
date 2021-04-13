@@ -1,6 +1,7 @@
 package com.planview.server.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -22,6 +23,7 @@ public class ApiLogService {
 
     public ApiLog createLog(ApiLog log) {
         log.setUserId(AuthService.getCurrentUserId());
+        log.setTimestamp(LocalDateTime.now());
         return this.apiLogRepo.save(log);
     }
 
