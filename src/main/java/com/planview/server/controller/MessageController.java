@@ -6,8 +6,7 @@ import javax.validation.Valid;
 
 import com.planview.server.entity.Message;
 import com.planview.server.entity.MessageView;
-import com.planview.server.repos.MessageRepo;
-import com.planview.server.service.AuthService;
+import com.planview.server.service.MessageService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,26 +19,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/message")
 public class MessageController {
-    private final MessageRepo messageRepo;
+    private final MessageService messageService;
 
-    public MessageController(MessageRepo messageRepo) {
-        this.messageRepo = messageRepo;
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
     }
 
     @PostMapping
     public Message createMessage(@RequestBody @Valid Message message) {
-        return this.messageRepo.save(message);
+        return this.messageService.createMessage(message);
     }
 
     @GetMapping
     public List<MessageView> getMessages() {
-        var userId = AuthService.getCurrentUserId();
-        return this.messageRepo.findAllByRecipient(userId);
+        return this.messageService.getMessages();
     }
 
     @DeleteMapping("{messageId}")
     public void deleteMessage(@PathVariable int messageId) {
-        this.messageRepo.deleteById(messageId);
+        this.messageService.deleteMessage(messageId);
     }
 
 }

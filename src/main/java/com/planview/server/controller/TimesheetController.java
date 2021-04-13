@@ -7,8 +7,7 @@ import javax.validation.Valid;
 
 import com.planview.server.entity.Timesheet;
 import com.planview.server.entity.TimesheetView;
-import com.planview.server.repos.TimesheetRepo;
-import com.planview.server.service.AuthService;
+import com.planview.server.service.TimesheetService;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -23,27 +22,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/timesheet")
 public class TimesheetController {
-    private final TimesheetRepo timesheetRepo;
+    private final TimesheetService timesheetService;
 
-    public TimesheetController(TimesheetRepo timesheetRepo) {
-        this.timesheetRepo = timesheetRepo;
+    public TimesheetController(TimesheetService timesheetService) {
+        this.timesheetService = timesheetService;
     }
 
     @PostMapping
     public List<Timesheet> createTimesheets(@RequestBody @Valid List<Timesheet> timesheets) {
-        return this.timesheetRepo.saveAll(timesheets);
+        return this.timesheetService.saveTimesheets(timesheets);
     }
 
     @GetMapping
     public List<Timesheet> getTimesheetsInRange(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate weekStartDate) {
-        var userId = AuthService.getCurrentUserId();
-        return this.timesheetRepo.findAllForWeek(userId, weekStartDate);
+        return this.timesheetService.getTimesheetsInRange(weekStartDate);
     }
 
     @GetMapping("all")
     @PreAuthorize("hasRole('ADMIN')")
     public List<TimesheetView> getAllTimesheets() {
-        return this.timesheetRepo.findAllSubmitted();
+        return this.timesheetService.getAllTimesheets();
     }
 
 }

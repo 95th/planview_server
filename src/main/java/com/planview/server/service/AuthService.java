@@ -13,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-@Service
 @Transactional
+@Service
 public class AuthService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
@@ -61,7 +61,7 @@ public class AuthService {
         return this.userRepo.save(user);
     }
 
-    public static int getCurrentUserId() {
+    static int getCurrentUserId() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         var principal = auth.getPrincipal();
         if (principal instanceof Integer) {

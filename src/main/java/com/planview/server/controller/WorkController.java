@@ -8,10 +8,7 @@ import javax.validation.Valid;
 import com.planview.server.entity.WorkAssignment;
 import com.planview.server.entity.WorkItem;
 import com.planview.server.entity.WorkType;
-import com.planview.server.repos.WorkAssignmentRepo;
-import com.planview.server.repos.WorkItemRepo;
-import com.planview.server.repos.WorkTypeRepo;
-import com.planview.server.service.AuthService;
+import com.planview.server.service.WorkService;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,60 +22,55 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/work")
 @PreAuthorize("hasRole('ADMIN')")
 public class WorkController {
-    private final WorkTypeRepo typeRepo;
-    private final WorkItemRepo itemRepo;
-    private final WorkAssignmentRepo assignmentRepo;
+    private final WorkService workService;
 
-    public WorkController(WorkTypeRepo typeRepo, WorkItemRepo itemRepo, WorkAssignmentRepo assignmentRepo) {
-        this.typeRepo = typeRepo;
-        this.itemRepo = itemRepo;
-        this.assignmentRepo = assignmentRepo;
+    public WorkController(WorkService workService) {
+        this.workService = workService;
     }
 
     @PostMapping("type")
     public WorkType createType(@RequestBody @Valid WorkType type) {
-        return this.typeRepo.save(type);
+        return this.workService.createType(type);
     }
 
     @GetMapping("type")
     public List<WorkType> getTypes() {
-        return this.typeRepo.findAll();
+        return this.workService.getTypes();
     }
 
     @GetMapping("type/{id}")
     public Optional<WorkType> getTypeById(@PathVariable int id) {
-        return this.typeRepo.findById(id);
+        return this.workService.getTypeById(id);
     }
 
     @PostMapping("item")
     public WorkItem createItem(@RequestBody @Valid WorkItem item) {
-        return this.itemRepo.save(item);
+        return this.workService.createItem(item);
     }
 
     @GetMapping("item")
     public List<WorkItem> getItems() {
-        return this.itemRepo.findAll();
+        return this.workService.getItems();
     }
 
     @GetMapping("item/{id}")
     public Optional<WorkItem> getItemById(@PathVariable int id) {
-        return this.itemRepo.findById(id);
+        return this.workService.getItemById(id);
     }
 
     @PostMapping("assign")
     public List<WorkAssignment> createAssignments(@RequestBody @Valid List<WorkAssignment> assignments) {
-        return this.assignmentRepo.saveAll(assignments);
+        return this.workService.createAssignments(assignments);
     }
 
     @GetMapping("assign")
     public List<WorkAssignment> getAssignments() {
-        var userId = AuthService.getCurrentUserId();
-        return this.assignmentRepo.findAllByUserId(userId);
+        return this.workService.getAssignments();
     }
 
     @GetMapping("assign/{id}")
     public Optional<WorkAssignment> getAssignmentById(@PathVariable int id) {
-        return this.assignmentRepo.findById(id);
+        return this.workService.getAssignmentById(id);
     }
 
 }

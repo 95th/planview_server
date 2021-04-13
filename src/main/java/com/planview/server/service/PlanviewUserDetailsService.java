@@ -1,5 +1,7 @@
 package com.planview.server.service;
 
+import javax.transaction.Transactional;
+
 import com.planview.server.repos.UserRepo;
 
 import org.springframework.security.core.userdetails.User;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+@Transactional
 @Service
 public class PlanviewUserDetailsService implements UserDetailsService {
     private final UserRepo userRepo;

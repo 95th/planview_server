@@ -7,8 +7,7 @@ import javax.validation.Valid;
 
 import com.planview.server.entity.ApiLog;
 import com.planview.server.entity.ApiLogAggregate;
-import com.planview.server.repos.ApiLogRepo;
-import com.planview.server.service.AuthService;
+import com.planview.server.service.ApiLogService;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -22,29 +21,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/log")
 public class ApiLogController {
-    private final ApiLogRepo apiLogRepo;
+    private final ApiLogService apiLogService;
 
-    public ApiLogController(ApiLogRepo apiLogRepo) {
-        this.apiLogRepo = apiLogRepo;
+    public ApiLogController(ApiLogService apiLogService) {
+        this.apiLogService = apiLogService;
     }
 
     @PostMapping
     public ApiLog createLog(@RequestBody @Valid ApiLog log) {
-        log.setUserId(AuthService.getCurrentUserId());
-        return this.apiLogRepo.save(log);
+        return this.apiLogService.createLog(log);
     }
 
     @GetMapping
-    public List<ApiLog> getLogs(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
+    public List<ApiLog> getLogs(
+            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate endDate) {
-        return this.apiLogRepo.findAllForDateRange(startDate.atStartOfDay(), endDate.plusDays(1).atStartOfDay());
+        return this.apiLogService.getLogs(startDate, endDate);
     }
 
     @GetMapping("aggregate")
-    public List<ApiLogAggregate> getLogsAggregate(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
+    public List<ApiLogAggregate> getLogsAggregate(
+            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate endDate) {
-        return this.apiLogRepo.findAllForDateRangeAsAggregate(startDate.atStartOfDay(),
-                endDate.plusDays(1).atStartOfDay());
+        return this.apiLogService.getLogsAggregate(startDate, endDate);
     }
 
 }

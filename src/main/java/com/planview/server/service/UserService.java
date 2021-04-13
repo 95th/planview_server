@@ -14,8 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-@Service
 @Transactional
+@Service
 public class UserService {
     private final UserRepo userRepo;
     private final TimesheetRepo timesheetRepo;
