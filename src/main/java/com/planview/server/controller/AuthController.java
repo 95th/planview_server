@@ -2,6 +2,7 @@ package com.planview.server.controller;
 
 import javax.validation.Valid;
 
+import com.planview.server.entity.AuthResponse;
 import com.planview.server.entity.LoginDetails;
 import com.planview.server.entity.User;
 import com.planview.server.jwt.JwtUtil;
@@ -26,13 +27,17 @@ public class AuthController {
     }
 
     @PostMapping("login")
-    public String login(@RequestBody @Valid LoginDetails loginDetails) {
-        var user = this.authService.loginUser(loginDetails);
+    public AuthResponse login(@RequestBody @Valid LoginDetails loginDetails) {
+        var user = this.authService.verifyLogin(loginDetails);
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }
 
-        return this.jwtUtil.createToken(user);
+        var token = this.jwtUtil.createToken(user);
+        var resp = new AuthResponse();
+        resp.setToken(token);
+        resp.setRole(user.getRole());
+        return resp;
     }
 
     @PostMapping("register")

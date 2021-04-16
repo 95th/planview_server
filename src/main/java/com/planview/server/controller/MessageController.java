@@ -30,9 +30,9 @@ public class MessageController {
         return this.messageService.createMessage(message);
     }
 
-    @GetMapping
-    public List<MessageView> getMessages() {
-        return this.messageService.getMessages();
+    @GetMapping("inbox")
+    public List<MessageView> getInbox() {
+        return this.messageService.getInbox();
     }
 
     @DeleteMapping("{messageId}")

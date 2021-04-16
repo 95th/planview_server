@@ -24,7 +24,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User loginUser(LoginDetails loginDetails) {
+    public User verifyLogin(LoginDetails loginDetails) {
         var user = this.userRepo.findByUserName(loginDetails.getUsername());
         if (user == null) {
             return null;

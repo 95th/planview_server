@@ -20,10 +20,11 @@ public class MessageService {
     }
 
     public Message createMessage(Message message) {
+        message.setSender(AuthService.getCurrentUserId());
         return this.messageRepo.save(message);
     }
 
-    public List<MessageView> getMessages() {
+    public List<MessageView> getInbox() {
         var userId = AuthService.getCurrentUserId();
         return this.messageRepo.findAllByRecipient(userId);
     }

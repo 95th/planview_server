@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .addFilterAfter(new JwtTokenVerifier(this.jwtUtil), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
-            .antMatchers("/api/auth/**", "/api/log", "/static/**", "/h2-console/**").permitAll()
+            .antMatchers("/api/auth/**", "/static/**", "/h2-console/**").permitAll()
             .anyRequest().authenticated();
     }
 

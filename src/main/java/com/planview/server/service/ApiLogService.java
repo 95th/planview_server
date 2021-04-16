@@ -1,7 +1,7 @@
 package com.planview.server.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -23,19 +23,15 @@ public class ApiLogService {
 
     public ApiLog createLog(ApiLog log) {
         log.setUserId(AuthService.getCurrentUserId());
-        log.setTimestamp(LocalDateTime.now());
+        log.setTimestamp(LocalDateTime.now(ZoneOffset.UTC));
         return this.apiLogRepo.save(log);
     }
 
-    public List<ApiLog> getLogs(LocalDate startDate, LocalDate endDate) {
-        var start = startDate.atStartOfDay();
-        var end = endDate.plusDays(1).atStartOfDay();
+    public List<ApiLog> getLogs(LocalDateTime start, LocalDateTime end) {
         return this.apiLogRepo.findAllForDateRange(start, end);
     }
 
-    public List<ApiLogAggregate> getLogsAggregate(LocalDate startDate, LocalDate endDate) {
-        var start = startDate.atStartOfDay();
-        var end = endDate.plusDays(1).atStartOfDay();
+    public List<ApiLogAggregate> getLogsAggregate(LocalDateTime start, LocalDateTime end) {
         return this.apiLogRepo.findAllForDateRangeAsAggregate(start, end);
     }
 }
